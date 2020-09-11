@@ -32,4 +32,8 @@ describe('test', () => {
   it('skip all', () => {
     expect(seqitr([1, 2, 3]).skip(3).toArray()).toEqual([])
   })
+
+  it('map witn index', () => {
+    expect(seqitr([1, 2, 3]).map((item, index) => item * index).toArray()).toEqual([0, 2, 6])
+  })
 })

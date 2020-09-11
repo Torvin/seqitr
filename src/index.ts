@@ -26,46 +26,51 @@ class Seqitr<T> {
     this.items = reiterable(typeof items === 'function' ? items : () => items)
   }
 
-  map<R>(fn: (item: T) => R) {
+  map<R>(fn: (item: T, index: number) => R) {
     return this.run(function* (items) {
+      let index = 0
       for (const item of items) {
-        yield fn(item)
+        yield fn(item, index++)
       }
     })
   }
 
-  filter(fn: (item: T) => boolean) {
+  filter(fn: (item: T, index: number) => boolean) {
     return this.run(function* (items) {
+      let index = 0
       for (const item of items) {
-        if (fn(item)) {
+        if (fn(item, index++)) {
           yield item
         }
       }
     })
   }
 
-  flatMap<R>(fn: (item: T) => Iterable<R>) {
+  flatMap<R>(fn: (item: T, index: number) => Iterable<R>) {
     return this.run(function* (items) {
+      let index = 0
       for (const item of items) {
-        yield* fn(item)
+        yield* fn(item, index++)
       }
     })
   }
 
-  reduce<A>(fn: (acc: A, item: T) => A, acc: A) {
+  reduce<A>(fn: (acc: A, item: T, index: number) => A, acc: A) {
     return this.run(function* (items) {
+      let index = 0
       for (const item of items) {
-        acc = fn(acc, item)
+        acc = fn(acc, item, index++)
       }
       return acc
     })
   }
 
-  unique<R>(fn?: (item: T) => R) {
+  unique<R>(fn?: (item: T, index: number) => R) {
     return this.run(function* (items) {
       const set = new Set()
+      let index = 0
       for (const item of items) {
-        const val = fn ? fn(item) : item
+        const val = fn ? fn(item, index++) : item
         if (set.has(val)) { continue }
         set.add(val)
         yield item
