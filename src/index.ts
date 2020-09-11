@@ -183,6 +183,18 @@ class Seqitr<T> {
     })
   }
 
+  count(): number
+  count(fn: (item: T) => boolean): number
+  count(fn?: (item: T) => boolean) {
+    let count = 0
+    for (const item of this.items) {
+      if (fn === undefined || fn(item)) {
+        count++
+      }
+    }
+    return count
+  }
+
   protected run<R>(fn: (items: Iterable<T>) => Iterable<R>) {
     return new Seqitr(() => fn(this.items))
   }

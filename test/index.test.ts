@@ -52,6 +52,14 @@ describe('test', () => {
   it('range without start', () => {
     expect(range(3).toArray()).toEqual([0, 1, 2])
   })
+
+  it('count', () => {
+    expect(range(2, 3).count()).toEqual(3)
+  })
+
+  it('count with condition', () => {
+    expect(range(3).count(x => x % 2 === 0)).toEqual(2)
+  })
 })
 
 function isDefined<T>(arg: T): arg is NonNullable<T> {
