@@ -36,4 +36,12 @@ describe('test', () => {
   it('map witn index', () => {
     expect(seqitr([1, 2, 3]).map((item, index) => item * index).toArray()).toEqual([0, 2, 6])
   })
+
+  it('filter with type guard', () => {
+    expect(seqitr([1, undefined, 3]).filter(isDefined).map(x => x + 1).toArray()).toEqual([2, 4])
+  })
 })
+
+function isDefined<T>(arg: T): arg is NonNullable<T> {
+  return arg !== undefined && arg !== null
+}

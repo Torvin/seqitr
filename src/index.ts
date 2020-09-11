@@ -35,6 +35,8 @@ class Seqitr<T> {
     })
   }
 
+  filter<S extends T>(fn: (item: T, index: number) => item is S): Seqitr<S>
+  filter(fn: (item: T, index: number) => boolean): Seqitr<T>
   filter(fn: (item: T, index: number) => boolean) {
     return this.run(function* (items) {
       let index = 0
