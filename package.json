@@ -16,7 +16,8 @@
     "build": "tsdx build",
     "test": "tsdx test",
     "lint": "tsdx lint",
-    "prepare": "tsdx build"
+    "prepare": "tsdx build",
+    "push": "npx np --no-release-draft --no-2fa"
   },
   "eslintConfig": {
     "extends": [
