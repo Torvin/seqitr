@@ -1,4 +1,7 @@
-export default function seqitr<T>(items: Iterable<T> | (() => Iterable<T>)) {
+export default function seqitr<T>(items: Iterator<T>): never
+export default function seqitr<T>(items: Iterable<T>): Seqitr<T>
+export default function seqitr<T>(items: () => Iterable<T>): Seqitr<T>
+export default function seqitr<T>(items: Iterable<T> | Iterator<T> | (() => Iterable<T>)) {
   return new Seqitr<T>(items as any)
 }
 
