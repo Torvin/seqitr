@@ -131,6 +131,17 @@ class Seqitr<T> {
     return obj
   }
 
+  first(): T | undefined
+  first(fn: (item: T) => boolean): T | undefined
+  first(fn?: (item: T) => boolean) {
+    for (const item of this.items) {
+      if (fn === undefined || fn(item)) {
+        return item
+      }
+    }
+    return undefined
+  }
+
   protected run<R>(fn: (items: Iterable<T>) => Iterable<R>) {
     return new Seqitr(() => fn(this.items))
   }
