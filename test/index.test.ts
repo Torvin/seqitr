@@ -1,4 +1,4 @@
-import seqitr from '../src'
+import seqitr, { range } from '../src'
 
 describe('test', () => {
   it('filter', () => {
@@ -43,6 +43,14 @@ describe('test', () => {
 
   it('pass nested seqitr', () => {
     expect(seqitr([1, 3]).flatMap(x => seqitr([x, x + 1])).toArray()).toEqual([1, 2, 3, 4])
+  })
+
+  it('range', () => {
+    expect(range(3, 2).toArray()).toEqual([3, 4])
+  })
+
+  it('range without start', () => {
+    expect(range(3).toArray()).toEqual([0, 1, 2])
   })
 })
 

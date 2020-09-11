@@ -11,6 +11,8 @@ export function range(start: number, count?: number): Seqitr<number> {
   if (count === undefined) {
     count = start
     start = 0
+  } else {
+    count += start
   }
 
   return new Seqitr(function*(){
