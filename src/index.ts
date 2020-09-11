@@ -103,6 +103,10 @@ class Seqitr<T> {
     return this.items
   }
 
+  [Symbol.iterator]() {
+    return this.items[Symbol.iterator]()
+  }
+
   toObject(getKey: (item: T) => string): Record<string, T>
   toObject<V>(getKey: (item: T) => string, getValue: (item: T) => V): Record<string, V>
   toObject<V>(getKey: (item: T) => string, getValue: (item: T) => V = emptyFn): Record<string, V> {

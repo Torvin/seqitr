@@ -40,6 +40,10 @@ describe('test', () => {
   it('filter with type guard', () => {
     expect(seqitr([1, undefined, 3]).filter(isDefined).map(x => x + 1).toArray()).toEqual([2, 4])
   })
+
+  it('pass nested seqitr', () => {
+    expect(seqitr([1, 3]).flatMap(x => seqitr([x, x + 1])).toArray()).toEqual([1, 2, 3, 4])
+  })
 })
 
 function isDefined<T>(arg: T): arg is NonNullable<T> {
