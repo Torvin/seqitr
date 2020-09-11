@@ -142,6 +142,31 @@ class Seqitr<T> {
     return undefined
   }
 
+  skip(count: number) {
+    return this.run(function*(items) {
+      for (const item of items) {
+        if (count === 0) {
+          yield item
+        } else {
+          count--
+        }
+      }
+    })
+  }
+
+  take(count: number) {
+    return this.run(function*(items) {
+      for (const item of items) {
+        if (count > 0) {
+          yield item
+          count--
+        } else {
+          break
+        }
+      }
+    })
+  }
+
   protected run<R>(fn: (items: Iterable<T>) => Iterable<R>) {
     return new Seqitr(() => fn(this.items))
   }
