@@ -122,10 +122,10 @@ class Seqitr<T> {
     return obj
   }
 
-  toMap(getKey: (item: T) => string): Map<string, T>
-  toMap<V>(getKey: (item: T) => string, getValue: (item: T) => V): Map<string, V>
-  toMap<V>(getKey: (item: T) => string, getValue: (item: T) => V = emptyFn): Map<string, V> {
-    const map = new Map<string, V>()
+  toMap<K>(getKey: (item: T) => K): Map<K, T>
+  toMap<K, V>(getKey: (item: T) => K, getValue: (item: T) => V): Map<K, V>
+  toMap<K, V>(getKey: (item: T) => K, getValue: (item: T) => V = emptyFn): Map<K, V> {
+    const map = new Map<K, V>()
     for (const item of this.items) {
       map.set(getKey(item), getValue(item))
     }
