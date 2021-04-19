@@ -63,13 +63,11 @@ class Seqitr<T> {
   }
 
   reduce<A>(fn: (acc: A, item: T, index: number) => A, acc: A) {
-    return this.run(function* (items) {
-      let index = 0
-      for (const item of items) {
-        acc = fn(acc, item, index++)
-      }
-      return acc
-    })
+    let index = 0
+    for (const item of this.items) {
+      acc = fn(acc, item, index++)
+    }
+    return acc
   }
 
   unique<R>(fn?: (item: T, index: number) => R) {

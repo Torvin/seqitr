@@ -60,6 +60,10 @@ describe('test', () => {
   it('count with condition', () => {
     expect(range(3).count(x => x % 2 === 0)).toEqual(2)
   })
+
+  it('reduce', () => {
+    expect(range(1, 5).reduce((acc, item) => acc + item, 0)).toEqual(15)
+  })
 })
 
 function isDefined<T>(arg: T): arg is NonNullable<T> {
