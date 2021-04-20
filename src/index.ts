@@ -41,8 +41,8 @@ class Seqitr<T> {
   }
 
   filter<S extends T>(fn: (item: T, index: number) => item is S): Seqitr<S>
-  filter(fn: (item: T, index: number) => boolean): Seqitr<T>
-  filter(fn: (item: T, index: number) => boolean) {
+  filter(fn: (item: T, index: number) => unknown): Seqitr<T>
+  filter(fn: (item: T, index: number) => unknown) {
     return this.run(function* (items) {
       let index = 0
       for (const item of items) {
@@ -146,14 +146,34 @@ class Seqitr<T> {
   }
 
   first(): T | undefined
-  first(fn: (item: T) => boolean): T | undefined
-  first(fn?: (item: T) => boolean) {
+  first(fn: (item: T) => unknown): T | undefined
+  first(fn?: (item: T) => unknown) {
     for (const item of this.items) {
       if (fn === undefined || fn(item)) {
         return item
       }
     }
     return undefined
+  }
+
+  some(): boolean
+  some(fn: (item: T) => unknown): boolean
+  some(fn?: (item: T) => unknown) {
+    for (const item of this.items) {
+      if (fn === undefined || fn(item)) {
+        return true
+      }
+    }
+    return false
+  }
+
+  every(fn: (item: T) => unknown) {
+    for (const item of this.items) {
+      if (!fn(item)) {
+        return false
+      }
+    }
+    return true
   }
 
   skip(count: number) {
@@ -182,8 +202,8 @@ class Seqitr<T> {
   }
 
   count(): number
-  count(fn: (item: T) => boolean): number
-  count(fn?: (item: T) => boolean) {
+  count(fn: (item: T) => unknown): number
+  count(fn?: (item: T) => unknown) {
     let count = 0
     for (const item of this.items) {
       if (fn === undefined || fn(item)) {

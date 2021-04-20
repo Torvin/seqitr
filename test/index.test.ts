@@ -64,6 +64,20 @@ describe('test', () => {
   it('reduce', () => {
     expect(range(1, 5).reduce((acc, item) => acc + item, 0)).toEqual(15)
   })
+
+  it('some', () => {
+    expect(seqitr([1, 2, 3]).some(x => x === 2)).toEqual(true)
+    expect(seqitr([1, 2, 3]).some(x => x === 4)).toEqual(false)
+    expect(seqitr([1]).some()).toEqual(true)
+    expect(seqitr([]).some()).toEqual(false)
+    expect(seqitr([]).some(x => x === 1)).toEqual(false)
+  })
+
+  it('every', () => {
+    expect(seqitr([1, 2, 3]).every(x => x < 4)).toEqual(true)
+    expect(seqitr([1, 2, 3]).every(x => x === 1)).toEqual(false)
+    expect(seqitr([]).every(x => x === 1)).toEqual(true)
+  })
 })
 
 function isDefined<T>(arg: T): arg is NonNullable<T> {
