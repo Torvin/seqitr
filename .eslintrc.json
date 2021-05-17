@@ -23,6 +23,7 @@
     "no-var": "error",
     "quotes": [ "error", "single" ],
     "semi": ["error", "never"],
+    "no-unused-vars": "off",
     "prettier/prettier": "off"
   }
 }

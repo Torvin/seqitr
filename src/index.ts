@@ -83,7 +83,7 @@ class Seqitr<T> {
     })
   }
 
-  concat(moreItems: Iterable<T>) {
+  concat<T2>(moreItems: Iterable<T2>) {
     return this.run(function* (items) {
       yield* items
       yield* moreItems

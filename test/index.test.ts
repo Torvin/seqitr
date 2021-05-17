@@ -78,6 +78,10 @@ describe('test', () => {
     expect(seqitr([1, 2, 3]).every(x => x === 1)).toEqual(false)
     expect(seqitr([]).every(x => x === 1)).toEqual(true)
   })
+
+  it('concat', () => {
+    expect(seqitr([1, 2]).concat([3, 4]).toArray()).toEqual([1, 2, 3, 4])
+  })
 })
 
 function isDefined<T>(arg: T): arg is NonNullable<T> {
