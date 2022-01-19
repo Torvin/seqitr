@@ -62,11 +62,23 @@ class Seqitr<T> {
     })
   }
 
-  reduce<A>(fn: (acc: A, item: T, index: number) => A, acc: A) {
+  reduce<A>(fn: (previousValue: T, currentValue: T, currentIndex: number) => A): A
+  reduce<A>(fn: (acc: A, item: T, index: number) => A, acc: A): A
+  reduce(fn: (acc: any, item: T, index: number) => any, acc?: any) {
     let index = 0
     for (const item of this.items) {
-      acc = fn(acc, item, index++)
+      if (acc === undefined && index === 0) {
+        acc = item
+      } else {
+        acc = fn(acc, item, index)
+      }
+      index++
     }
+
+    if (acc === undefined && index === 0) {
+      throw new TypeError('reduce of empty iterable with no initial value')
+    }
+
     return acc
   }
 

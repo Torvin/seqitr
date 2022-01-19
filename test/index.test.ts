@@ -63,6 +63,11 @@ describe('test', () => {
 
   it('reduce', () => {
     expect(range(1, 5).reduce((acc, item) => acc + item, 0)).toEqual(15)
+    expect(range(1, 5).reduce((acc, item) => acc + item, 1)).toEqual(16)
+    expect(range(1, 5).reduce((acc, item) => acc + item)).toEqual(15)
+    expect(seqitr([1]).reduce((x, y) => x + y)).toEqual(1)
+    expect(seqitr([1, 2]).reduce((x, y) => x + y)).toEqual(3)
+    expect(() => seqitr([]).reduce((x, y) => x + y)).toThrow(/initial/)
   })
 
   it('some', () => {
